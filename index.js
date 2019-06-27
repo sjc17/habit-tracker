@@ -3,10 +3,13 @@ const authRouter = require('./routes/authRouter');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
+const mongoose = require('mongoose');
 const keys = require('./config/keys');
 require('./services/passport');
 
 const app = express();
+
+mongoose.connect(keys.mongoURI, { useNewUrlParser: true });
 
 app.use(bodyParser.json());
 app.use(

@@ -2,11 +2,12 @@ const keys = require('../config/keys');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const TwitterStrategy = require('passport-twitter').Strategy;
+const User = require('../models/User');
 
-passport.serializeUser(({ id }, done) => {
-  console.log(id);
+passport.serializeUser((user, done) => {
+  console.log(user);
 
-  done(null, id);
+  done(null, user);
 });
 
 passport.deserializeUser((user, done) => {
@@ -20,8 +21,21 @@ passport.use(
       clientSecret: keys.googleClientSecret,
       callbackURL: '/auth/google/callback'
     },
-    (accessToken, refreshToken, profile, done) => {
-      return done(null, profile);
+    async (accessToken, refreshToken, profile, done) => {
+      try {
+        const user = await User.findOne({ googleID: profile.id });
+        if (user === null) {
+          User.create({
+            googleID: profile.id,
+            name: `${profile.name.givenName} ${profile.name.familyName}`
+          });
+          return done(null, user);
+        }
+        return done(null, user);
+      } catch (err) {
+        console.log(err);
+        return done(null, null);
+      }
     }
   )
 );
@@ -33,8 +47,21 @@ passport.use(
       consumerSecret: keys.twitterConsumerSecret,
       callbackURL: '/auth/twitter/callback'
     },
-    (accessToken, refreshToken, profile, done) => {
-      return done(null, profile);
+    async (accessToken, refreshToken, profile, done) => {
+      try {
+        const user = await User.findOne({ twitterID: profile.id });
+        if (user === null) {
+          User.create({
+            twitterID: profile.id,
+            name: profile.displayName
+          });
+          return done(null, user);
+        }
+        return done(null, user);
+      } catch (err) {
+        console.log(err);
+        return done(null, null);
+      }
     }
   )
 );
