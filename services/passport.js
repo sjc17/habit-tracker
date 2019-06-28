@@ -5,13 +5,11 @@ const TwitterStrategy = require('passport-twitter').Strategy;
 const User = require('../models/User');
 
 passport.serializeUser((user, done) => {
-  console.log(user);
-
-  done(null, user);
+  done(null, user.id);
 });
 
-passport.deserializeUser((user, done) => {
-  done(null, user);
+passport.deserializeUser((id, done) => {
+  User.findById(id, (err, user) => done(null, user));
 });
 
 passport.use(
@@ -34,7 +32,7 @@ passport.use(
         return done(null, user);
       } catch (err) {
         console.log(err);
-        return done(null, null);
+        return done(err);
       }
     }
   )
@@ -60,7 +58,7 @@ passport.use(
         return done(null, user);
       } catch (err) {
         console.log(err);
-        return done(null, null);
+        return done(err);
       }
     }
   )
