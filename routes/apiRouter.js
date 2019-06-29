@@ -14,7 +14,7 @@ router.post('/create', ({ body: { name, description, user } }, res) => {
       user
     },
     (err, habit) => {
-      if (err) return res.send({error: "Could not create habit"});
+      if (err) return res.send({ error: 'Could not create habit' });
       return res.send(habit);
     }
   );
