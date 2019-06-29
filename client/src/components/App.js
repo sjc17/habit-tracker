@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import Landing from './Landing';
 import Dashboard from './Dashboard';
+import NewHabitForm from './NewHabitForm';
 import * as actions from '../actions';
 
 class App extends Component {
@@ -25,7 +26,8 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <Route path="/" exact component={this.componentToRender()} />
+        <Route path="/" component={this.componentToRender()} />
+        <Route path="/new" component={NewHabitForm} />
       </BrowserRouter>
     );
   }
