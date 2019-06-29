@@ -1,0 +1,12 @@
+.google-button-img {
+  position: absolute;
+  left: 1px;
+  top: 1px;
+  display: inline-block;
+  background-color: #ffffff;
+  vertical-align: middle;
+}
+.google-button-text {
+  position: absolute;
+  right: 12px;
+}
