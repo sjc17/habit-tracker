@@ -6,6 +6,11 @@ router.get('/currentuser', (req, res) => {
   res.send(req.user);
 });
 
+router.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/');
+})
+
 router.post('/create', ({ body: { name, description, user } }, res) => {
   Habit.create(
     {

@@ -1,18 +1,45 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import Container from '@material-ui/core/Container';
+import { connect } from 'react-redux';
+
 import Landing from './Landing';
+import Dashboard from './Dashboard';
+import * as actions from '../actions';
 
 class App extends Component {
+  componentDidMount() {
+    this.props.fetchUser();
+  }
+
+  componentToRender() {
+    switch (this.props.auth) {
+      case null:
+        console.log('null');
+        return null;
+      case false:
+        console.log('false');
+        return Landing;
+      default:
+        console.log('dashboard');
+
+        return Dashboard;
+    }
+  }
+
   render() {
     return (
-      <Container>
-        <BrowserRouter>
-          <Route path="/" exact component={Landing} />
-        </BrowserRouter>
-      </Container>
+      <BrowserRouter>
+        <Route path="/" exact component={this.componentToRender()} />
+      </BrowserRouter>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return { auth: state.auth };
+};
+
+export default connect(
+  mapStateToProps,
+  actions
+)(App);
