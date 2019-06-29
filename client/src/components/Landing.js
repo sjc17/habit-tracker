@@ -4,7 +4,6 @@ export default Landing => {
   return (
     <div style={{ textAlign: 'center' }}>
       <h1>Steven's Habit Tracker</h1>
-      <h3>It's time to stop being lazy</h3>
       <a
         href="/auth/google"
         className="waves-effect waves-light btn"
@@ -13,7 +12,7 @@ export default Landing => {
         Log in with Google
       </a>
       <a
-        href="/api/currentuser"
+        href="/auth/twitter"
         className="waves-effect waves-light btn"
         style={{ margin: '0px 5px' }}
       >

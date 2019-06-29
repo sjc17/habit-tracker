@@ -14,14 +14,10 @@ class App extends Component {
   componentToRender() {
     switch (this.props.auth) {
       case null:
-        console.log('null');
         return null;
       case false:
-        console.log('false');
         return Landing;
       default:
-        console.log('dashboard');
-
         return Dashboard;
     }
   }

@@ -1,19 +1,31 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-export default Dashboard => {
+const Dashboard = ({ auth: { name } }) => {
   return (
     <div className="container" style={{ textAlign: 'center' }}>
       <nav>
         <div className="nav-wrapper">
-          <a
-            href="/api/logout"
-            className="right waves-effect waves-light btn"
-            style={{ marginRight: '2rem', marginTop: '1rem' }}
-          >
-            Logout
-          </a>
+          <ul className="right">
+            <li>{name}</li>
+            <li>
+              <a
+                href="/api/logout"
+                className="right waves-effect waves-light btn"
+                style={{ margin: '1rem' }}
+              >
+                Logout
+              </a>
+            </li>
+          </ul>
         </div>
       </nav>
     </div>
   );
 };
+
+const mapStateToProps = ({ auth }) => {
+  return { auth };
+};
+
+export default connect(mapStateToProps)(Dashboard);
