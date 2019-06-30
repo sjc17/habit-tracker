@@ -1,17 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const NewHabitButton = () => {
+const NewHabitButton = props => {
   return (
-    <div className="fixed-action-btn">
-      <Link
-        to="/new"
-        style={{ bottom: '24px' }}
-        className=" btn-floating btn-large waves-effect waves-light red right"
-      >
-        <i className="material-icons">add</i>
-      </Link>
-    </div>
+    <button className="fixed-action-btn" onClick={props.toggleForm}>
+      +
+    </button>
   );
 };
 
