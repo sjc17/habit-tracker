@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+
 import Navbar from './Navbar';
 import DisplayHabits from './DisplayHabits';
 import NewHabitButton from './NewHabitButton';
@@ -14,6 +16,7 @@ class Dashboard extends Component {
   toggleForm() {
     this.setState({ showForm: !this.state.showForm });
   }
+
   render() {
     return (
       <div className="container" style={{ textAlign: 'center' }}>
