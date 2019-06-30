@@ -9,14 +9,14 @@ router.get('/currentuser', (req, res) => {
 router.get('/logout', (req, res) => {
   req.logout();
   res.redirect('/');
-})
+});
 
-router.post('/create', ({ body: { name, description, user } }, res) => {
+router.post('/create', ({ body: { name, description }, user }, res) => {
   Habit.create(
     {
       name,
       description,
-      user
+      user: user.id
     },
     (err, habit) => {
       if (err) return res.send({ error: 'Could not create habit' });
