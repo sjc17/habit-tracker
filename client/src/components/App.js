@@ -8,6 +8,7 @@ import * as actions from '../actions';
 class App extends Component {
   componentDidMount() {
     this.props.fetchUser();
+    this.props.fetchHabits();
   }
 
   componentToRender() {
@@ -26,10 +27,7 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return { auth: state.auth };
-};
-
+const mapStateToProps = ({ auth }) => ({ auth });
 export default connect(
   mapStateToProps,
   actions

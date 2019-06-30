@@ -25,15 +25,13 @@ class Dashboard extends Component {
     const res = await axios.post('/api/create', {
       ...values
     });
-    console.log('done');
-    console.log(res);
   }
 
   render() {
     return (
       <div className="container" style={{ textAlign: 'center' }}>
         <Navbar />
-        <DisplayHabits />
+        <DisplayHabits habits={this.props.habits} />
         <NewHabitButton toggleForm={this.toggleForm} />
         {this.state.showForm ? (
           <NewHabitForm onSubmit={this.createHabit} />
@@ -43,9 +41,10 @@ class Dashboard extends Component {
   }
 }
 
-const mapStateToProps = ({ auth }) => {
+const mapStateToProps = ({ auth, habits }) => {
   return {
-    auth
+    auth,
+    habits
   };
 };
 

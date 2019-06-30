@@ -16,13 +16,23 @@ router.post('/create', ({ body: { name, description }, user }, res) => {
     {
       name,
       description,
-      user: user.id
+      userID: user.id
     },
     (err, habit) => {
       if (err) return res.send({ error: 'Could not create habit' });
       return res.send(habit);
     }
   );
+});
+
+router.get('/gethabits', ({ user }, res) => {
+  Habit.find({ userID: user.id }, (err, docs) => {
+    if (err) {
+      console.log(err);
+      return res.send({ error: 'has occurred' });
+    }
+    res.send(docs);
+  });
 });
 
 module.exports = router;

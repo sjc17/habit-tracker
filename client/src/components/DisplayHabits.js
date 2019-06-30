@@ -1,7 +1,7 @@
 import React from 'react';
 
-const DisplayHabits = () => {
-  return <div>Display habits here </div>;
+const DisplayHabits = props => {
+  return <div>Display habits here</div>;
 };
 
 export default DisplayHabits;
