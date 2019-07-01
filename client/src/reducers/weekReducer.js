@@ -1,8 +1,8 @@
-import { FETCH_HABITS } from '../actions/types';
+import { SET_CURRENT_WEEK } from '../actions/types';
 
 export default (state = [], action) => {
   switch (action.type) {
-    case FETCH_HABITS:
+    case SET_CURRENT_WEEK:
       return action.payload;
     default:
       return state;

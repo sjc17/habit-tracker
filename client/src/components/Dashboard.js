@@ -17,6 +17,11 @@ class Dashboard extends Component {
       showForm: false
     };
   }
+
+  componentDidMount() {
+    const d = new Date();
+    this.props.setCurrentWeek(d);
+  }
   toggleForm() {
     this.setState({ showForm: !this.state.showForm });
   }
@@ -25,6 +30,8 @@ class Dashboard extends Component {
     const res = await axios.post('/api/create', {
       ...values
     });
+    this.toggleForm();
+    this.props.fetchHabits();
   }
 
   render() {
@@ -34,7 +41,10 @@ class Dashboard extends Component {
         <DisplayHabits habits={this.props.habits} />
         <NewHabitButton toggleForm={this.toggleForm} />
         {this.state.showForm ? (
-          <NewHabitForm onSubmit={this.createHabit} />
+          <NewHabitForm
+            onSubmit={this.createHabit}
+            closeForm={this.toggleForm}
+          />
         ) : null}
       </div>
     );
