@@ -4,6 +4,11 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 
 class HabitRow extends Component {
+  state = { showOptions: false };
+  async deleteHabit(habit) {
+    await axios.delete('/api/deletehabit', { params: { id: habit._id } });
+    this.props.fetchHabits();
+  }
   renderHabitCheckboxes(habit) {
     let listArray = [];
     for (let i = 0; i < 7; i++) {
@@ -37,22 +42,45 @@ class HabitRow extends Component {
   }
   render() {
     return (
-      <li
-        style={{
-          width: '100%',
-          height: '50px'
-        }}
-        className="row valign-wrapper"
-      >
-        <div className="col s4" style={{ textAlign: 'left' }}>
-          {this.props.habit.name}
-        </div>
+      <li>
+        <div
+          style={{
+            width: '100%',
+            height: '50px'
+          }}
+          className="row valign-wrapper"
+        >
+          <div className="col s4" style={{ textAlign: 'left' }}>
+            {this.props.habit.name}
+          </div>
 
-        {this.renderHabitCheckboxes(this.props.habit)}
+          {this.renderHabitCheckboxes(this.props.habit)}
 
-        <div className="col s1 valign-wrapper">
-          <i className="material-icons">settings</i>
+          <div
+            className="col s1 valign-wrapper"
+            onClick={e =>
+              this.setState({ showOptions: !this.state.showOptions })
+            }
+          >
+            <i className="material-icons" style={{ cursor: 'pointer' }}>
+              settings
+            </i>
+          </div>
         </div>
+        {this.state.showOptions ? (
+          <button
+            className="right btn"
+            style={{ marginBottom: '10px' }}
+            onClick={e => {
+              this.setState({showOptions: false});
+              this.deleteHabit(this.props.habit)
+            }}
+          >
+            Delete Habit
+          </button>
+        ) : (
+          undefined
+        )}
       </li>
     );
   }

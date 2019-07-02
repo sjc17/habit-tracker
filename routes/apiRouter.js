@@ -49,4 +49,11 @@ router.post('/updatetimestamp', async ({ body: { habitID, date } }, res) => {
   res.send(doc);
 });
 
+router.delete('/deleteHabit', async ({ query: { id } }, res) => {
+  console.log(id);
+  const doc = await Habit.findByIdAndDelete(id);
+  console.log(doc);
+  res.send(doc);
+});
+
 module.exports = router;

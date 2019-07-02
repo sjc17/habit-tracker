@@ -12,7 +12,10 @@ import './index.css';
 window.axios = axios;
 
 const store = createStore(rootReducer, {}, applyMiddleware(reduxThunk));
-
+window.document.addEventListener('DOMContentLoaded', function() {
+  var elems = window.document.querySelectorAll('.collapsible');
+  var instances = window.M.Collapsible.init(elems);
+});
 render(
   <Provider store={store}>
     <App />
