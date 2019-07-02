@@ -36,16 +36,18 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <div className="container" style={{ textAlign: 'center' }}>
+      <div>
         <Navbar />
-        <DisplayHabits habits={this.props.habits} />
-        <NewHabitButton toggleForm={this.toggleForm} />
-        {this.state.showForm ? (
-          <NewHabitForm
-            onSubmit={this.createHabit}
-            closeForm={this.toggleForm}
-          />
-        ) : null}
+        <div className="container" style={{ textAlign: 'center' }}>
+          <DisplayHabits habits={this.props.habits} />
+          <NewHabitButton toggleForm={this.toggleForm} />
+          {this.state.showForm ? (
+            <NewHabitForm
+              onSubmit={this.createHabit}
+              closeForm={this.toggleForm}
+            />
+          ) : null}
+        </div>
       </div>
     );
   }

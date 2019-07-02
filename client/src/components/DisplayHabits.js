@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import axios from 'axios';
 
 class DisplayHabits extends Component {
   renderDaysOfWeek() {
@@ -19,17 +20,36 @@ class DisplayHabits extends Component {
     let listArray = [];
     for (let i = 0; i < 7; i++) {
       listArray[i] = (
-        <label className="col s1 valign-wrapper" key={i}>
-          <input className="filled-in" type="checkbox" />
-          <span />
-        </label>
+        <div className="col s1 valign-wrapper" key={i}>
+          <div
+            style={{
+              backgroundColor: habit.timeStamps.includes(this.props.week[i])
+                ? '#7ff'
+                : '#eee',
+              width: '30px',
+              height: '30px',
+              borderRadius: '50%',
+              borderStyle: 'solid',
+              borderColor: '#ccc',
+              borderWidth: '2px',
+              cursor: 'pointer'
+            }}
+            onClick={async e => {
+              await axios.post('/api/addtimestamp', {
+                habitID: habit._id,
+                date: this.props.week[i]
+              });
+              this.props.fetchHabits();
+            }}
+          />
+        </div>
       );
     }
     return listArray;
   }
   render() {
     return (
-      <form action="#">
+      <div>
         <ul>
           <li
             style={{
@@ -64,7 +84,7 @@ class DisplayHabits extends Component {
             );
           })}
         </ul>
-      </form>
+      </div>
     );
   }
 }

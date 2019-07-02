@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Habit = require('../models/Habit');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 router.get('/currentuser', (req, res) => {
   res.send(req.user);
@@ -33,6 +34,19 @@ router.get('/gethabits', ({ user }, res) => {
     }
     res.send(docs);
   });
+});
+
+router.post('/addtimestamp', async ({ body: { habitID, date } }, res) => {
+  const doc = await Habit.findById(ObjectId(habitID));
+  if (doc.timeStamps.includes(date)) {
+    // found same timestamp
+    res.send('done');
+  } else {
+    // not found, push to array
+    doc.timeStamps.push(date);
+    doc.save();
+    res.send(doc);
+  }
 });
 
 module.exports = router;

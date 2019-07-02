@@ -5,7 +5,7 @@ const habitSchema = new Schema({
   name: String,
   description: String,
   userID: String,
-  timeStamps: [Date]
+  timeStamps: [String]
 });
 
 const Habit = mongoose.model('Habit', habitSchema);
