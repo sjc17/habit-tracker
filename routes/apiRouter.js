@@ -27,13 +27,18 @@ router.post('/createhabit', ({ body: { name, description }, user }, res) => {
 });
 
 router.get('/gethabits', ({ user }, res) => {
-  Habit.find({ userID: user.id }, (err, docs) => {
-    if (err) {
-      console.log(err);
-      return res.send({ error: 'has occurred' });
-    }
-    res.send(docs);
-  });
+  try {
+    Habit.find({ userID: user.id }, (err, docs) => {
+      if (err) {
+        console.log(err);
+        return res.send({ error: 'has occurred' });
+      }
+      res.send(docs);
+    });
+  } catch (error) {
+    console.log(error);
+    res.send({});
+  }
 });
 
 router.post('/updatetimestamp', async ({ body: { habitID, date } }, res) => {
