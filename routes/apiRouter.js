@@ -12,7 +12,7 @@ router.get('/logout', (req, res) => {
   res.redirect('/');
 });
 
-router.post('/create', ({ body: { name, description }, user }, res) => {
+router.post('/createhabit', ({ body: { name, description }, user }, res) => {
   Habit.create(
     {
       name,
@@ -36,17 +36,17 @@ router.get('/gethabits', ({ user }, res) => {
   });
 });
 
-router.post('/addtimestamp', async ({ body: { habitID, date } }, res) => {
+router.post('/updatetimestamp', async ({ body: { habitID, date } }, res) => {
   const doc = await Habit.findById(ObjectId(habitID));
   if (doc.timeStamps.includes(date)) {
-    // found same timestamp
-    res.send('done');
+    // found same timestamp, delete from array
+    doc.timeStamps.splice(doc.timeStamps.indexOf(date), 1);
   } else {
     // not found, push to array
     doc.timeStamps.push(date);
-    doc.save();
-    res.send(doc);
   }
+  doc.save();
+  res.send(doc);
 });
 
 module.exports = router;

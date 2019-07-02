@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { FETCH_USER, FETCH_HABITS, SET_CURRENT_WEEK } from './types';
+import {
+  FETCH_USER,
+  FETCH_HABITS,
+  SET_CURRENT_WEEK,
+  CHANGE_CURRENT_WEEK
+} from './types';
 
 export const fetchUser = () => async dispatch => {
   const res = await axios.get('/api/currentuser');
@@ -27,4 +32,20 @@ export const setCurrentWeek = date => dispatch => {
   }
 
   dispatch({ type: SET_CURRENT_WEEK, payload: week });
+};
+
+export const changeCurrentWeek = (goBackwards, week) => dispatch => {
+  let newWeek = [];
+  if (typeof goBackwards === 'boolean') {
+    let date;
+    for (let i = 0; i < 7; i++) {
+      date = new Date(week[i]);
+      date.setDate(date.getDate() + (goBackwards ? -7 : 7));
+      newWeek[i] = date.toDateString();
+    }
+  } else {
+    console.log('not boolean');
+    newWeek = week;
+  }
+  dispatch({ type: CHANGE_CURRENT_WEEK, payload: newWeek });
 };

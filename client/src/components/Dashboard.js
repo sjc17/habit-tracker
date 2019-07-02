@@ -27,7 +27,7 @@ class Dashboard extends Component {
   }
 
   async createHabit(values) {
-    const res = await axios.post('/api/create', {
+    const res = await axios.post('/api/createhabit', {
       ...values
     });
     this.toggleForm();
@@ -39,7 +39,7 @@ class Dashboard extends Component {
       <div>
         <Navbar />
         <div className="container" style={{ textAlign: 'center' }}>
-          <DisplayHabits habits={this.props.habits} />
+          <DisplayHabits />
           <NewHabitButton toggleForm={this.toggleForm} />
           {this.state.showForm ? (
             <NewHabitForm
