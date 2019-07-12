@@ -27,7 +27,7 @@ router.post('/createhabit', ({ body: { name, description }, user }, res) => {
 });
 
 router.get('/gethabits', ({ user }, res) => {
-  try {
+  if (user) {
     Habit.find({ userID: user.id }, (err, docs) => {
       if (err) {
         console.log(err);
@@ -35,8 +35,7 @@ router.get('/gethabits', ({ user }, res) => {
       }
       res.send(docs);
     });
-  } catch (error) {
-    console.log(error);
+  } else {
     res.send({});
   }
 });

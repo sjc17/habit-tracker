@@ -8,8 +8,9 @@ passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-passport.deserializeUser((id, done) => {
-  User.findById(id, (err, user) => done(null, user));
+passport.deserializeUser(async (id, done) => {
+  const user = await User.findById(id);
+  done(null, user);
 });
 
 passport.use(
@@ -22,14 +23,14 @@ passport.use(
     async (accessToken, refreshToken, profile, done) => {
       try {
         const user = await User.findOne({ googleID: profile.id });
-        if (user === null) {
-          User.create({
-            googleID: profile.id,
-            name: `${profile.name.givenName} ${profile.name.familyName}`
-          });
+        // If user already exists
+        if (user) {
           return done(null, user);
         }
-        return done(null, user);
+
+        // Existing user not found - create new user
+        const newUser = await new User({googleID: profile.id}).save();
+        return done(null, newUser);
       } catch (err) {
         console.log(err);
         return done(err);

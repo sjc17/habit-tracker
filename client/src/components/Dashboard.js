@@ -21,6 +21,7 @@ class Dashboard extends Component {
   componentDidMount() {
     const d = new Date();
     this.props.setCurrentWeek(d);
+    this.props.fetchHabits();
   }
   toggleForm() {
     this.setState({ showForm: !this.state.showForm });
