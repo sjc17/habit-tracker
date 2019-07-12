@@ -29,7 +29,10 @@ passport.use(
         }
 
         // Existing user not found - create new user
-        const newUser = await new User({googleID: profile.id}).save();
+        const newUser = await new User({
+          googleID: profile.id,
+          name: profile.displayName
+        }).save();
         return done(null, newUser);
       } catch (err) {
         console.log(err);
