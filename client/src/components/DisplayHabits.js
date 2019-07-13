@@ -12,6 +12,7 @@ class DisplayHabits extends Component {
           className="col s1 left-align"
           key={i}
           style={
+            // Bold font for today
             this.props.week[i] === new Date().toDateString()
               ? { fontWeight: 'bold' }
               : {}

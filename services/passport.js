@@ -52,14 +52,21 @@ passport.use(
     async (accessToken, refreshToken, profile, done) => {
       try {
         const user = await User.findOne({ twitterID: profile.id });
-        if (user === null) {
-          User.create({
-            twitterID: profile.id,
-            name: profile.displayName
-          });
+        // If user already exists
+        if (user) {
+          if (profile.displayName !== user.name) {
+            user.name = profile.displayName;
+            await user.save();
+          }
           return done(null, user);
         }
-        return done(null, user);
+
+        // Existing user not found - create new user
+        const newUser = await new User({
+          twitterID: profile.id,
+          name: profile.displayName
+        }).save();
+        return done(null, newUser);
       } catch (err) {
         console.log(err);
         return done(err);

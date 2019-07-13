@@ -50,7 +50,10 @@ class HabitRow extends Component {
           }}
           className="row valign-wrapper"
         >
-          <div className="col s4" style={{ textAlign: 'left' }}>
+          <div
+            className="col s4"
+            style={{ textAlign: 'left', cursor: 'pointer' }}
+          >
             {this.props.habit.name}
           </div>
 
@@ -72,8 +75,8 @@ class HabitRow extends Component {
             className="right btn"
             style={{ marginBottom: '10px' }}
             onClick={e => {
-              this.setState({showOptions: false});
-              this.deleteHabit(this.props.habit)
+              this.setState({ showOptions: false });
+              this.deleteHabit(this.props.habit);
             }}
           >
             Delete Habit
