@@ -3,7 +3,9 @@ import {
   FETCH_USER,
   FETCH_HABITS,
   SET_CURRENT_WEEK,
-  CHANGE_CURRENT_WEEK
+  CHANGE_CURRENT_WEEK,
+  ADD_TIMESTAMP,
+  REMOVE_TIMESTAMP
 } from './types';
 
 export const fetchUser = () => async dispatch => {
@@ -48,4 +50,22 @@ export const changeCurrentWeek = (goBackwards, week) => dispatch => {
     newWeek = week;
   }
   dispatch({ type: CHANGE_CURRENT_WEEK, payload: newWeek });
+};
+
+export const updateTimestamp = (habit, timeStamp) => dispatch => {
+  const timeStampExists = habit.timeStamps.includes(timeStamp);
+  let actionType;
+  if (timeStampExists) {
+    actionType = REMOVE_TIMESTAMP;
+  } else {
+    actionType = ADD_TIMESTAMP;
+  }
+
+  dispatch({
+    type: actionType,
+    payload: {
+      id: habit._id,
+      timeStamp
+    }
+  });
 };

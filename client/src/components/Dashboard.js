@@ -23,6 +23,7 @@ class Dashboard extends Component {
     this.props.setCurrentWeek(d);
     this.props.fetchHabits();
   }
+
   toggleForm() {
     this.setState({ showForm: !this.state.showForm });
   }
@@ -31,7 +32,10 @@ class Dashboard extends Component {
     const res = await axios.post('/api/createhabit', {
       ...values
     });
+    // Close the form when successful
     this.toggleForm();
+
+    // Rerender dashboard to show new habit
     this.props.fetchHabits();
   }
 

@@ -27,12 +27,16 @@ class HabitRow extends Component {
               borderWidth: '2px',
               cursor: 'pointer'
             }}
-            onClick={async e => {
-              await axios.post('/api/updatetimestamp', {
-                habitID: habit._id,
-                date: this.props.week[i]
-              });
-              this.props.fetchHabits();
+            onClick={e => {
+              try {
+                this.props.updateTimestamp(habit, this.props.week[i]);
+                axios.post('/api/updatetimestamp', {
+                  habitID: habit._id,
+                  date: this.props.week[i]
+                });
+              } catch (error) {
+                console.log(error);
+              }
             }}
           />
         </div>
