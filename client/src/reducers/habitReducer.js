@@ -4,39 +4,33 @@ import {
   REMOVE_TIMESTAMP
 } from '../actions/types';
 
-export default (state = [], action) => {
-  // For ADD_TIMESTAMP and REMOVE_TIMESTAMP actions
-  // Find index of specific habit to modify
+const updateTimeStampFunc = (state, { type, payload }) => {
   const index = state.findIndex(habit => {
-    return habit._id === action.payload.id;
+    return habit._id === payload.id;
   });
+  return state.map((item, i) => {
+    // If habit is not specified by our index, do not change it
+    if (i !== index) {
+      return item;
+    }
+    let newItem = { ...item };
 
+    if (type === ADD_TIMESTAMP) {
+      newItem.timeStamps = newItem.timeStamps.concat(payload.timeStamp);
+    } else if (type === REMOVE_TIMESTAMP) {
+      newItem.timeStamps = newItem.timeStamps.filter(item => {
+        return item !== payload.timeStamp;
+      });
+    }
+    return newItem;
+  });
+};
+
+export default (state = [], action) => {
   switch (action.type) {
     case ADD_TIMESTAMP:
-      return state.map((item, i) => {
-        // If habit is not specified by our index, do not change it
-        if (i !== index) {
-          return item;
-        }
-        let newItem = { ...item };
-        newItem.timeStamps = newItem.timeStamps.concat(
-          action.payload.timeStamp
-        );
-        return newItem;
-      });
     case REMOVE_TIMESTAMP:
-      return state.map((item, i) => {
-        // If habit is not specified by our index, do not change it
-        if (i !== index) {
-          return item;
-        }
-        let newItem = { ...item };
-        newItem.timeStamps = newItem.timeStamps.filter(item => {
-          return item !== action.payload.timeStamp;
-        });
-        return newItem;
-      });
-
+      return updateTimeStampFunc(state, action);
     case FETCH_HABITS:
       return action.payload;
     default:
