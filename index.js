@@ -11,15 +11,9 @@ require('./services/passport');
 
 const app = express();
 
-mongoose.connect(
-  keys.mongoURI,
-  {
-    //useNewUrlParser: true
-  },
-  err => {
-    console.log(err);
-  }
-);
+mongoose.connect(keys.mongoURI, {
+  useNewUrlParser: true
+});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

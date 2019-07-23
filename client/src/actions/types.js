@@ -4,3 +4,4 @@ export const SET_CURRENT_WEEK = 'set_current_week';
 export const CHANGE_CURRENT_WEEK = 'change_current_week';
 export const ADD_TIMESTAMP = 'add_timestamp';
 export const REMOVE_TIMESTAMP = 'remove_timestamp';
+export const SET_VIEW_HABIT_DETAILS = 'set_view_habit_details';

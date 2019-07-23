@@ -57,6 +57,9 @@ class HabitRow extends Component {
           <div
             className="col s4"
             style={{ textAlign: 'left', cursor: 'pointer' }}
+            onClick={e => {
+              this.props.setViewHabitDetails(this.props.habit._id);
+            }}
           >
             {this.props.habit.name}
           </div>

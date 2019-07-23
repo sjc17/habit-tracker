@@ -5,7 +5,8 @@ import {
   SET_CURRENT_WEEK,
   CHANGE_CURRENT_WEEK,
   ADD_TIMESTAMP,
-  REMOVE_TIMESTAMP
+  REMOVE_TIMESTAMP,
+  SET_VIEW_HABIT_DETAILS
 } from './types';
 
 export const fetchUser = () => async dispatch => {
@@ -68,4 +69,8 @@ export const updateTimestamp = (habit, timeStamp) => dispatch => {
       timeStamp
     }
   });
+};
+
+export const setViewHabitDetails = id => dispatch => {
+  dispatch({ type: SET_VIEW_HABIT_DETAILS, payload: id });
 };

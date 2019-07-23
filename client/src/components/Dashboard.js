@@ -7,6 +7,7 @@ import Navbar from './Navbar';
 import DisplayHabits from './DisplayHabits';
 import NewHabitButton from './NewHabitButton';
 import NewHabitForm from './NewHabitForm';
+import HabitDetails from './HabitDetails';
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -44,24 +45,31 @@ class Dashboard extends Component {
       <div>
         <Navbar />
         <div className="container" style={{ textAlign: 'center' }}>
-          <DisplayHabits />
-          <NewHabitButton toggleForm={this.toggleForm} />
-          {this.state.showForm ? (
-            <NewHabitForm
-              onSubmit={this.createHabit}
-              closeForm={this.toggleForm}
-            />
-          ) : null}
+          {this.props.view ? (
+            <HabitDetails />
+          ) : (
+            <div>
+              <DisplayHabits />
+              <NewHabitButton toggleForm={this.toggleForm} />
+              {this.state.showForm ? (
+                <NewHabitForm
+                  onSubmit={this.createHabit}
+                  closeForm={this.toggleForm}
+                />
+              ) : null}
+            </div>
+          )}
         </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ auth, habits }) => {
+const mapStateToProps = ({ auth, habits, view }) => {
   return {
     auth,
-    habits
+    habits,
+    view
   };
 };
 
