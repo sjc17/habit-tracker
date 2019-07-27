@@ -55,7 +55,7 @@ class HabitRow extends Component {
           className="row valign-wrapper"
         >
           <div
-            className="col s4"
+            className="col s4 fade-on-hover"
             style={{ textAlign: 'left', cursor: 'pointer' }}
             onClick={e => {
               this.props.setViewHabitDetails(this.props.habit._id);
@@ -67,7 +67,7 @@ class HabitRow extends Component {
           {this.renderHabitCheckboxes(this.props.habit)}
 
           <div
-            className="col s1 valign-wrapper"
+            className="col s1 valign-wrapper fade-on-hover"
             onClick={e =>
               this.setState({ showOptions: !this.state.showOptions })
             }

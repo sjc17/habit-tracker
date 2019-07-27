@@ -40,7 +40,7 @@ class DisplayHabits extends Component {
           >
             <div className="col s3" />
             <div
-              className="col s1 valign-wrapper disable-selection"
+              className="col s1 valign-wrapper disable-selection fade-on-hover"
               onClick={e => {
                 this.props.changeCurrentWeek(true, this.props.week);
               }}
@@ -49,7 +49,7 @@ class DisplayHabits extends Component {
             </div>
             {this.renderDaysOfWeek()}
             <div
-              className="col s1 valign-wrapper disable-selection"
+              className="col s1 valign-wrapper disable-selection fade-on-hover"
               onClick={e => {
                 this.props.changeCurrentWeek(false, this.props.week);
               }}
