@@ -88,9 +88,7 @@ class HabitRow extends Component {
           >
             Delete Habit
           </button>
-        ) : (
-          undefined
-        )}
+        ) : null}
       </li>
     );
   }

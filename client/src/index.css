@@ -15,3 +15,11 @@ body {
 .fade-on-hover:hover {
   opacity: 0.5;
 }
+
+.react-calendar-heatmap .color-full {
+  fill: #15e041;
+}
+
+.react-calendar-heatmap .color-empty {
+  fill: #585858;
+}

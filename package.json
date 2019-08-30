@@ -19,7 +19,8 @@
     "passport": "^0.4.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
-    "passport-twitter": "^1.0.4"
+    "passport-twitter": "^1.0.4",
+    "react-calendar-heatmap": "^1.8.1"
   },
   "devDependencies": {
     "concurrently": "^4.1.1"
