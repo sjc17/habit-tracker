@@ -8,7 +8,10 @@ class HabitDetails extends Component {
   state = {
     habit: this.props.habits.filter(item => {
       return item._id === this.props.view;
-    })[0]
+    })[0],
+    tooltipX: null,
+    tooltipY: null,
+    tooltipText: null
   };
 
   render() {
@@ -19,19 +22,18 @@ class HabitDetails extends Component {
           {this.state.habit.description}
         </p>
         <div
-          className="valign-wrapper fade-on-hover"
+          className='valign-wrapper fade-on-hover'
           onClick={e => {
             this.props.setViewHabitDetails(null);
           }}
           style={{ position: 'fixed', top: '100px', left: '50px' }}
         >
-          <i className="material-icons medium">keyboard_arrow_left</i>
+          <i className='material-icons medium'>keyboard_arrow_left</i>
         </div>
         <CalendarHeatMap
           startDate={new Date('2019-01-01')}
           endDate={new Date('2019-12-31')}
           values={this.state.habit.timeStamps.map(timeStamp => {
-            console.log(formatDate(timeStamp));
             return { date: formatDate(timeStamp) };
           })}
           classForValue={value => {
@@ -41,8 +43,43 @@ class HabitDetails extends Component {
             return 'color-full';
           }}
           showWeekdayLabels={true}
+          onMouseOver={(event, value) => {
+            console.log(value);
+            if (value) {
+              this.setState({
+                tooltipX: event.clientX,
+                tooltipY: event.clientY,
+                tooltipText: value.date
+              });
+            } else {
+              this.setState({
+                tooltipX: 0,
+                tooltipY: 0,
+                tooltipText: ''
+              });
+            }
+          }}
+          onMouseLeave={(event, value) => {
+            this.setState({
+              tooltipX: 0,
+              tooltipY: 0,
+              tooltipText: ''
+            });
+          }}
           weekdayLabels={['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']}
         />
+        <div
+          className='tooltip'
+          style={{
+            padding: '2px',
+            backgroundColor: '#FFF',
+            position: 'absolute',
+            left: this.state.tooltipX + 20 + 'px',
+            top: this.state.tooltipY + 20 + 'px'
+          }}
+        >
+          {this.state.tooltipText}
+        </div>
       </div>
     );
   }
